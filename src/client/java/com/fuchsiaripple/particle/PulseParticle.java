@@ -44,8 +44,7 @@ public class PulseParticle extends BillboardParticle {
 	@Override
 	public float getSize(float tickProgress) {
 		float p = Math.min(1.0f, ((float) this.age + tickProgress) / (float) this.maxAge);
-		float eased = 1.0f - (1.0f - p) * (1.0f - p) * (1.0f - p);
-		return this.startScale + (this.endScale - this.startScale) * eased;
+		return this.startScale + (this.endScale - this.startScale) * p;
 	}
 
 	@Override
@@ -58,6 +57,7 @@ public class PulseParticle extends BillboardParticle {
 		return BillboardParticle.RenderType.PARTICLE_ATLAS_TRANSLUCENT;
 	}
 
+	/** Small bright flash at the exact hit point. */
 	public static class FlashFactory implements ParticleFactory<SimpleParticleType> {
 		private final SpriteProvider sprites;
 		public FlashFactory(SpriteProvider sprites) { this.sprites = sprites; }
@@ -67,19 +67,20 @@ public class PulseParticle extends BillboardParticle {
 									   double x, double y, double z,
 									   double vx, double vy, double vz, Random random) {
 			// life, startSize, endSize, R, G, B
-			return new PulseParticle(world, x, y, z, sprites.getSprite(random), 6, 0.15f, 0.65f, 1.0f, 0.55f, 1.0f);
+			return new PulseParticle(world, x, y, z, sprites.getSprite(random), 6, 0.10f, 0.45f, 1.0f, 0.6f, 1.0f);
 		}
 	}
 
-	public static class RingFactory implements ParticleFactory<SimpleParticleType> {
+	/** Tiny glowing dot. Lots of these make the wave that sweeps over the body. */
+	public static class SparkFactory implements ParticleFactory<SimpleParticleType> {
 		private final SpriteProvider sprites;
-		public RingFactory(SpriteProvider sprites) { this.sprites = sprites; }
+		public SparkFactory(SpriteProvider sprites) { this.sprites = sprites; }
 
 		@Override
 		public Particle createParticle(SimpleParticleType type, ClientWorld world,
 									   double x, double y, double z,
 									   double vx, double vy, double vz, Random random) {
-			return new PulseParticle(world, x, y, z, sprites.getSprite(random), 10, 0.25f, 1.1f, 1.0f, 0.1f, 1.0f);
+			return new PulseParticle(world, x, y, z, sprites.getSprite(random), 5, 0.13f, 0.03f, 1.0f, 0.15f, 1.0f);
 		}
 	}
 }
