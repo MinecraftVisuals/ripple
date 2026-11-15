@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "fuchsia_ripple",
+  "version": "${version}",
+  "name": "Fuchsia Ripple",
+  "description": "A fuchsia flash and shockwave ring that pops where you hit a player, drawn over their armour.",
+  "authors": ["YOUR_NAME"],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.fuchsiaripple.FuchsiaRipple"],
+    "client": ["com.fuchsiaripple.FuchsiaRippleClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.1",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
